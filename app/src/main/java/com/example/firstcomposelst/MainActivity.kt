@@ -6,11 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +43,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CreateBizCard() {
 
+    val buttonClicked = remember {
+        mutableStateOf(false)
+    }
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,7 +61,6 @@ fun CreateBizCard() {
             backgroundColor = Color.White,
             elevation = 4.dp
         ) {
-
             Column(
                 modifier = Modifier.height(300.dp),
                 verticalArrangement = Arrangement.Top,
@@ -63,11 +69,53 @@ fun CreateBizCard() {
                 CreateImageProfile()
                 Divider()
                 CreateInfo()
+                Button(onClick = {
+                    buttonClicked.value = !buttonClicked.value
+                }) {
+                    Text(text = "Portfolio", style = MaterialTheme.typography.button)
+                }
+
+                if (buttonClicked.value)
+                    Content()
+                else
+                    Box() {
+
+                    }
             }
-
-
         }
 
+    }
+}
+
+
+@Preview
+@Composable
+private fun Content() {
+    Box(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxHeight()
+            .fillMaxWidth()
+    ) {
+        Surface(
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            shape = RoundedCornerShape(corner = CornerSize(6.dp)),
+            border = BorderStroke(width = 2.dp, color = Color.LightGray)
+        ) {
+            portfolio(data = listOf(" Project 1 ", " Project 2 ", " Project 3 "))
+        }
+    }
+}
+
+@Composable
+fun portfolio(data: List<String>) {
+    LazyColumn {
+        items(data) { item ->
+            Text(text = item, modifier = Modifier.padding(5.dp))
+        }
     }
 }
 
@@ -117,7 +165,7 @@ private fun CreateImageProfile(modifier: Modifier = Modifier) {
 }
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FirstComposeLstTheme {
