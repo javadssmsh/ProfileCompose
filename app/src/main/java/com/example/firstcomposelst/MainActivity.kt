@@ -124,14 +124,14 @@ fun portfolio(data: List<String>) {
 
                 Row(
                     modifier = Modifier
-                        .padding(8.dp)
+                        .fillMaxWidth()
                         .background(color = MaterialTheme.colors.surface)
                         .padding(16.dp)
                 ) {
                     CreateImageProfile(modifier = Modifier.size(100.dp))
                     Column(
                         modifier = Modifier
-                            .size(7.dp)
+                            .padding(7.dp)
                             .align(alignment = Alignment.CenterVertically)
                     ) {
                         Text(text = item, fontWeight = FontWeight.Bold)
@@ -170,7 +170,7 @@ private fun CreateInfo() {
 @Composable
 private fun CreateImageProfile(modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .size(150.dp)
             .padding(5.dp),
         shape = CircleShape,
@@ -182,7 +182,7 @@ private fun CreateImageProfile(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.profile_image),
             contentDescription = "profile image ",
-            modifier = Modifier.size(135.dp),
+            modifier = modifier.size(135.dp),
             contentScale = ContentScale.Crop
         )
 
@@ -190,7 +190,7 @@ private fun CreateImageProfile(modifier: Modifier = Modifier) {
 }
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FirstComposeLstTheme {
